@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BtnCannon : MonoBehaviour
 {
-    UIManager uIManager;
 
     public Renderer btnRenderer;
 
@@ -15,10 +14,10 @@ public class BtnCannon : MonoBehaviour
 
     public void OnMouseEnter()
     {
-        uIManager.SetCannonInfoPopupActive(true);
+        UIManager.instance.SetCannonInfoPopupActive(true);
     }
     public void OnMouseExit()
     {
-        uIManager.SetCannonInfoPopupActive(false);
+        UIManager.instance.SetCannonInfoPopupActive(false);
     }
 }

@@ -6,6 +6,7 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager instance;
 
     public Button mBtnCannonDeploy = null;
     public TMP_Text mTextCountDown = null;
@@ -16,6 +17,22 @@ public class UIManager : MonoBehaviour
     public int mCountDown = 10;
 
     public GameObject mCannonInfoPopup = null;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            if (instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+    }
 
     private void Start()
     {

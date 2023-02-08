@@ -42,6 +42,8 @@ public class BoardManager : MonoBehaviour
     public Transform mSellectPos = null;
     public BoadState mBoardState = BoadState.None;
 
+    public GameObject mCannonPrefab = null;
+
     private void Awake()
     {
         if (instance == null)
@@ -103,8 +105,9 @@ public class BoardManager : MonoBehaviour
                 Board[index] = 2; // 배치함으로변경
 
                 //
-                GameObject clone = GameObject.Instantiate<GameObject>(mSellectPos.gameObject);
-                clone.transform.position = mousePos;
+                GameObject deployCannon = GameObject.Instantiate<GameObject>(mCannonPrefab);
+                //GameObject deployCannon = GameObject.Instantiate<GameObject>(mSellectPos.gameObject);
+                deployCannon.transform.position = mousePos;
 
                 SetBoardState(BoadState.None);
             }

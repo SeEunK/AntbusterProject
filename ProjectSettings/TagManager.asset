@@ -6,11 +6,13 @@ TagManager:
   tags:
   - Cannon
   - Ant
+  - Cake
+  - Bullet
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ant
   - Water
   - UI
   - 

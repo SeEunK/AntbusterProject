@@ -31,9 +31,20 @@ public class Cake : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log(other.gameObject.name);
+    }
+
     public void DisCakeCount()
     {
         mCakeCount -= 1;
+        SetCakeImage(mCakeCount);
+    }
+    public void AddCakeCount(int count)
+    {
+        mCakeCount += count;
+        SetCakeImage(mCakeCount);
     }
 
     public int GetCakeCount()

@@ -33,6 +33,11 @@ public class Cannon : MonoBehaviour
        mCannonHead = transform.GetChild(0).gameObject;
     }
 
+
+    private void OnMouseDown()
+    {
+        Debug.Log("asdfasdf");
+    }
     // Update is called once per frame
     void Update()
     {
@@ -51,7 +56,7 @@ public class Cannon : MonoBehaviour
                     // 찾은 ant를 타겟으로 설정.
                     mTaget = findAnt;
 
-                    ChangeColor(mTaget);
+                
 
                     mState = CannonState.Attack;
                 }

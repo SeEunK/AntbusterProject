@@ -37,7 +37,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         InItUI();
-        StartCoroutine(UpdateCountDown());
+        //StartCoroutine(UpdateCountDown());
         SetCannonInfoPopupActive(false);
        
     }
@@ -85,17 +85,17 @@ public class UIManager : MonoBehaviour
         mTextCountDown.text = (value.ToString());
     }
 
-    private IEnumerator UpdateCountDown()
-    {
-        while (mCountDown >0)
-        {
-            SetTextCountDown(mCountDown -= 1);
+    //private IEnumerator UpdateCountDown()
+    //{
+    //    while (mCountDown >0)
+    //    {
+    //        SetTextCountDown(mCountDown -= 1);
 
-            yield return new WaitForSeconds(1.0f);
+    //        yield return new WaitForSeconds(1.0f);
             
-        }
+    //    }
       
-    }
+    //}
 
 
 

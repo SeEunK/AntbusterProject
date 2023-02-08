@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -26,15 +27,24 @@ public class Bullet : MonoBehaviour
 
     }
 
-    public void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "Ant")
+        if (other.tag == "Ant")
         {
+            Debug.Log("ant");
             this.gameObject.SetActive(false);
+            Ant target = other.gameObject.GetComponent<Ant>();
+            if (target != null)
+            {
+                target.OnDamage(100);
+            }
+
             // °³¹Ì ÇÇ ±ï°í
             // ÃÑ¾Ë active ²ô°í
             // push
 
         }
     }
+
+ 
 }

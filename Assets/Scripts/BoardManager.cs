@@ -7,6 +7,40 @@ public class BoardManager : MonoBehaviour
     public static BoardManager instance;
     public enum BoadState { None, Deploy }
 
+    // 나중에 게임메니져 만들고 이동할 내용---------------
+    public int mCakeCount = 0;
+    
+    public enum GameState { GameReady, GameStart, GameOver}
+    public GameState mGameState = GameState.GameReady;
+
+    public float mTimer = 0.0f;
+    public int mCountDown = 10;
+
+    public void UpdateGame()
+    {
+
+        if (mGameState == GameState.GameReady)
+        {
+            mTimer += Time.deltaTime;
+            if (mTimer >= 1.0f)
+            {
+                mTimer = 0.0f;
+
+                mCountDown -= 1;
+                UIManager.instance.SetTextCountDown(mCountDown);
+
+                if (mCountDown == 0)
+                {
+                    mGameState = GameState.GameStart;
+                }
+            }
+        }
+
+    }
+
+    //------------------------------------------
+
+
     //보드 한칸
     public const float UNIT = 1.0f;
     // 타일 가로
@@ -61,7 +95,8 @@ public class BoardManager : MonoBehaviour
     }
     private void Update()
     {
-        if(mBoardState == BoadState.Deploy)
+        UpdateGame(); // 
+        if (mBoardState == BoadState.Deploy)
         {
             UpdateDeployMode();
         }

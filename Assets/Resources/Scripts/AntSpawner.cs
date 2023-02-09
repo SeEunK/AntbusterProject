@@ -25,12 +25,12 @@ public class AntSpawner : MonoBehaviour
     }
     public void Update()
     {
-        if (BoardManager.instance.mGameState == BoardManager.GameState.GameReady)
+        if (GameManager.instance.mGameState == GameManager.GameState.GameReady)
         {
             return;
         }
-        if (BoardManager.instance.mCakeCount >= 8)
-        { 
+        if (GameManager.instance.mGameState == GameManager.GameState.GameOver)
+        {
             return; 
         }
 

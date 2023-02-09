@@ -340,8 +340,17 @@ MonoBehaviour:
   mAttackRange: 2
   mTime: 0
   mBulletPrefabs: {fileID: 4093776789921121383, guid: 5e8c51bccafa217479b142816fd0de04, type: 3}
-  mAttackSpeed: 3
+  mAttackSpeed: 1
+  mBulltetSpeed: 0.05
+  mBulletIndex: -1
+  mHeadIndex: -1
   mTaget: {fileID: 0}
+  mCenter: {x: 0, y: 0, z: 0}
+  mCannonHeadImageList:
+  - {fileID: -600284430, guid: 8f6d83df81697184dab22e950630882b, type: 3}
+  - {fileID: -840880894, guid: 8f6d83df81697184dab22e950630882b, type: 3}
+  - {fileID: 1412567447, guid: 8f6d83df81697184dab22e950630882b, type: 3}
+  - {fileID: -984874504, guid: 8f6d83df81697184dab22e950630882b, type: 3}
 --- !u!61 &585812339
 BoxCollider2D:
   m_ObjectHideFlags: 0

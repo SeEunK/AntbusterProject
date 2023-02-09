@@ -5,6 +5,7 @@ using UnityEngine;
 public class SellectManager : MonoBehaviour
 {
     public GameObject prevClickObject = null;
+    public GameObject SellectCannonObject = null;
 
     private void Update()
     {
@@ -38,10 +39,16 @@ public class SellectManager : MonoBehaviour
                 }
 
                 prevClickObject = clickObject;
-                clickObject.transform.GetChild(1).gameObject.SetActive(true);
+                SellectCannonObject = clickObject;
+                SellectCannonObject.transform.GetChild(1).gameObject.SetActive(true);
 
+
+                //upgrade 버튼 활성화 
+                UIManager.instance.SetSellectCannon(SellectCannonObject);
+                UIManager.instance.SetUpgradeButtonEnable(true);
             }
         }
     }
+ 
 
 }

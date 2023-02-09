@@ -51,7 +51,7 @@ public class Ant : MonoBehaviour
             {
                 if (IsCakeEnable() == true)
                 {
-                    BoardManager.instance.mCakeCount += 1;
+                    GameManager.instance.mCakeCount += 1;
                 }
                 mSpawner.PushAnt(this.gameObject);
             }
@@ -89,7 +89,7 @@ public class Ant : MonoBehaviour
     }
     public bool IsCakeEnable()
     {
-        return this.transform.GetChild(0).gameObject.active;
+        return this.transform.GetChild(0).gameObject.activeSelf;
     }
 
     public void OnTriggerEnter2D(Collider2D other)
@@ -175,98 +175,5 @@ public class Ant : MonoBehaviour
     }
 
 
-    // ---------------------- 길 찾기는 다시 생각하자
-
-    public void UpdateMode()
-    {
-       
-        // 현재 개미의 좌표를 월드좌표로 변환
-        Vector3 antCurrPos = mCamera.ScreenToWorldPoint(transform.position);
-
-        // 보드안의 인덱스로 변환
-        int posX = Mathf.Clamp((int)(antCurrPos.x / UNIT), 0, WIDTH - 1);
-        int posY = Mathf.Clamp((int)(antCurrPos.y / UNIT), 0, LENGTH - 1);
-
-        int currIndex = posY * WIDTH + posX;
-
-        antCurrPos.z = 0.0f;
-        antCurrPos.x = posX;
-        antCurrPos.y = posY;
-
-        List<int> indexs = FindAroundIndex(currIndex);
-
-        while (true)
-        {
-            int randomIndex = Random.Range(0, indexs.Count + 1);
-
-            // 주변 칸중에 빈 공간 중 1개 골라서 이동 
-            if (Board[randomIndex] == 0)
-            {
-                //SetTargetPos(Board[randomInde)
-                return;
-            }
-            else
-            {
-
-            }
-        }
-               
-
-    }
-
-    public List<int> FindAroundIndex(int currIndex)
-    {
-        List <int > indexs = new List <int>();
-
-        int index_1 = (currIndex - 1) - WIDTH;
-        indexs.Add(index_1);
-
-        int index_2 = currIndex - WIDTH;
-        indexs.Add(index_2);
-
-        int index_3 = (currIndex + 1) - WIDTH;
-        indexs.Add(index_3);
-
-        int index_4 = currIndex - 1;
-        indexs.Add(index_4);
-
-        int index_5 = currIndex + 1;
-        indexs.Add(index_5);
-
-        int index_6 = (currIndex - 1) + WIDTH;
-        indexs.Add(index_6);
-
-        int index_7 = currIndex + WIDTH;
-        indexs.Add(index_7);
-
-        int index_8 = (currIndex + 1) + WIDTH;
-        indexs.Add(index_8);
-
-        for(int i = 0; i < indexs.Count;i++)
-        {
-            if (ValidIndexCheck(indexs[i]) == -1)
-            {
-                indexs.RemoveAt(i);
-                i--;
-            }
-            
-        }
-
-        return indexs;
-
-
-    }
-
-    public int ValidIndexCheck(int index)
-    {
-        if (index >= 0 && index <= WIDTH * LENGTH) 
-        {
-            return index;
-
-        }
-        else
-        {
-            return -1;
-        }
-    }
+    
 }

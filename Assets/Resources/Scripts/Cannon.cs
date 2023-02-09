@@ -20,24 +20,32 @@ public class Cannon : MonoBehaviour
 
     public float mTime = 0.0f;
     public GameObject mBulletPrefabs = null;
-    public float mAttackSpeed = 3.0f;
+    public float mAttackSpeed = 1.0f;
+    public float mBulltetSpeed = 0.05f;
+    public int mBulletIndex = -1;
+    public int mHeadIndex = -1;
     public GameObject mTaget = null;
 
     public Vector3 mCenter = Vector3.zero;
+
+    public List<Sprite> mCannonHeadImageList = new List<Sprite>();
 
     // Start is called before the first frame update
     void Start()
     {
         mCenter = gameObject.transform.GetChild(3).transform.position;
+        mCannonHead = transform.GetChild(0).gameObject;
         SetAttackRange(mAttackRange);
-       mCannonHead = transform.GetChild(0).gameObject;
+        SetAttackSpeed(mAttackSpeed);
+        SetCannonLevel(1);
+        SetCannonHeadImage(0);
+     
+        SetBulletIndex(mCannonLevel - 1);
+
+
     }
 
 
-    private void OnMouseDown()
-    {
-        Debug.Log("asdfasdf");
-    }
     // Update is called once per frame
     void Update()
     {
@@ -55,8 +63,6 @@ public class Cannon : MonoBehaviour
                     Debug.Log("in Range ");
                     // 찾은 ant를 타겟으로 설정.
                     mTaget = findAnt;
-
-                
 
                     mState = CannonState.Attack;
                 }
@@ -81,17 +87,61 @@ public class Cannon : MonoBehaviour
             }
         }
     }
+    // pop
     public void ShotTarget()
     {
         if (mTaget != null)
         {
-            GameObject bullet = GameObject.Instantiate<GameObject>(mBulletPrefabs);
+            //GameObject bulletObject = GameObject.Instantiate<GameObject>(mBulletPrefabs);
 
-            // 총알 시작 포지션을 쏘는 Cannon 위치로 설정
-            bullet.transform.position = gameObject.transform.GetChild(3).transform.position;
-            bullet.GetComponent<Bullet>().UpdateTarget(mTaget.transform);
-            bullet.SetActive(true);
+            //bullect manager 에서 bulletindex 에 맞는 bullet pop!
+            GameObject bulletObject = BulletManager.instance.PopBullet(mBulletIndex);
+
+            // 총알 세팅은 캐논이 하고, Active 하고 쏘기!
+            Bullet bullet = bulletObject.GetComponent<Bullet>();
+            bullet.Init(mBulletIndex, mCannonLevel, mBulltetSpeed, mCenter , mAttackRange);
+          
+            bullet.UpdateTarget(mTaget.transform);
+            bulletObject.SetActive(true);
         }
+    }
+    public void SetCannonLevel(int level)
+    {
+        mCannonLevel = level;
+    }
+
+    public void SetCannonHeadImage(int index)
+    {
+        mHeadIndex= index;
+        mCannonHead.GetComponent<SpriteRenderer>().sprite = mCannonHeadImageList[index];
+    }
+    public void CannonUpgrade()
+    {
+        // 레벨  (총알 데미지도 이걸로 처리)
+        SetCannonLevel(mCannonLevel+ 1);
+        // 공속
+        if (mAttackSpeed >= 0.3f)
+        {
+            SetAttackSpeed(mAttackSpeed - 0.02f);
+        }
+        // 범위
+        SetAttackRange(mAttackRange * 2);
+        // 총알 종류
+        if (mBulletIndex < BulletManager.instance.mBulletPrefabList.Count)
+        {
+            SetBulletIndex(mBulletIndex + 1);
+        }
+        if (mHeadIndex < mCannonHeadImageList.Count)
+        {
+            SetCannonHeadImage(mHeadIndex+1);
+        }
+
+    }
+
+
+    public void SetBulletIndex(int index)
+    {
+        mBulletIndex = index;
     }
     public bool IsInRange(GameObject target)
     {
@@ -110,6 +160,11 @@ public class Cannon : MonoBehaviour
             return false;
         }
        
+    }
+
+    public void SetAttackSpeed(float speed)
+    {
+        mAttackSpeed = speed;
     }
     public void SetAttackRange(float range)
     {
